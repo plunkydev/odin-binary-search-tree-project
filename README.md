@@ -1,68 +1,70 @@
-# HashMap en JavaScript
+# Binary Search Trees (BST) – Proyecto en JavaScript
 
-Este proyecto forma parte del curso **Fullstack JavaScript** de [The Odin Project](https://www.theodinproject.com/lessons/javascript-hashmap).  
-El objetivo es implementar desde cero una **estructura de datos HashMap**, entendiendo cómo funciona internamente y practicando conceptos clave de algoritmos y estructuras de datos.  
-Además, se planea desarrollar una **representación gráfica** que permita visualizar la distribución de claves en buckets, así como interactuar con los métodos principales de la estructura.
+Implementación de un **Árbol Binario de Búsqueda balanceado** (BST) en JavaScript, con inserción, borrado, búsqueda, recorridos (BFS/DFS), métricas (altura/profundidad) y verificación/re‐balanceo del árbol. Basado en la lección oficial de The Odin Project. :contentReference[oaicite:0]{index=0}
 
 ---
 
-## 🚀 Motivación
+## 🎯 Propósito
 
-En JavaScript ya existen objetos (`{}`) y `Map` para almacenar pares clave-valor.  
-Sin embargo, construir un **HashMap propio** permite:
+- Construir desde cero un **BST balanceado** que permita **búsqueda, inserción y eliminación eficientes**.
+- Practicar **recorridos** por niveles (BFS) y en profundidad (in/pre/post‐order).
+- Calcular **altura** y **profundidad** de nodos; **detectar desbalance** y **re‐balancear** el árbol.
+- Consolidar **POO en JS**, **recursividad** y razonamiento de **Big-O** en operaciones sobre árboles. :contentReference[oaicite:1]{index=1}
 
-- Comprender cómo se distribuyen las claves en un arreglo de **buckets**.
-- Implementar y analizar una **función hash**.
-- Manejar **colisiones** mediante listas enlazadas.
-- Profundizar en el concepto de **factor de carga** y **redimensionado dinámico**.
-- Practicar el diseño y la implementación de métodos de una estructura de datos clásica.
-- **Visualizar de manera gráfica** cómo se insertan, eliminan y buscan los datos en el HashMap.
+> Nota: evitar **valores duplicados** (eliminar o ignorar) para simplificar y preservar el balance. :contentReference[oaicite:2]{index=2}
 
 ---
 
-## 🛠️ Funcionalidades Implementadas
+## 🧭 Alcance del proyecto (qué construiré)
 
-El HashMap debe soportar:
-
-- `set(key, value)`: Inserta un par clave-valor (o actualiza si la clave ya existe).  
-- `get(key)`: Devuelve el valor asociado a la clave o `null` si no existe.  
-- `has(key)`: Comprueba si la clave está presente.  
-- `remove(key)`: Elimina un par clave-valor si existe.  
-- `length()`: Devuelve el número de pares almacenados.  
-- `clear()`: Vacía la estructura.  
-- `keys()`: Devuelve un arreglo con todas las claves.  
-- `values()`: Devuelve un arreglo con todos los valores.  
-- `entries()`: Devuelve un arreglo de pares `[key, value]`.
-
-Además:
-
-- Manejo de **colisiones** con listas enlazadas.  
-- **Redimensionado automático** cuando se supera el factor de carga (`loadFactor`).  
-- **Representación gráfica interactiva** para probar las operaciones de inserción, búsqueda y eliminación.
-
----
-
-## 📚 Aprendizajes Clave
-
-- Cómo diseñar una **función hash simple**.  
-- Diferencia entre complejidad **promedio** y **peor caso** en un HashMap.  
-- La importancia de los **invariantes internos**: no duplicar claves, mantener `count` correcto, validar índices.  
-- Cómo reinsertar elementos correctamente al **duplicar la capacidad**.  
-- Qué aporta una **visualización gráfica** para reforzar la comprensión de estructuras de datos.
+1. **`Node`**: estructura con `data`, `left`, `right`.  
+2. **`Tree`**: clase/factory que recibe un arreglo al inicializar y expone `root` (resultado de `buildTree`).  
+3. **`buildTree(array)`**: crea un **BST balanceado** a partir de un arreglo **ordenado y sin duplicados**; devuelve la **raíz nivel 0**.  
+4. **Operaciones**:
+   - `insert(value)` y `deleteItem(value)` (maneja casos: hoja, 1 hijo, 2 hijos).  
+   - `find(value)` → retorna el **nodo** con el valor.  
+5. **Recorrido por niveles (BFS)**:
+   - `levelOrderForEach(callback)` → recorre **en nivel** y aplica `callback(node)`; **lanza Error** si no se pasa callback.  
+6. **Recorridos en profundidad (DFS)**:
+   - `inOrderForEach(cb)`, `preOrderForEach(cb)`, `postOrderForEach(cb)` → requieren `cb` y **lanzan Error** si falta.  
+7. **Métricas**:
+   - `height(value)` y `depth(value)` (retornan `null` si el valor no existe).  
+8. **Balanceo**:
+   - `isBalanced()` → **verifica la condición en *cada* nodo** (no solo en la raíz).  
+   - `rebalance()` → reconstruye el árbol a partir de un recorrido que produzca los valores ordenados.  
+9. **Utilidad**:
+   - `prettyPrint(root)` para visualizar el árbol en consola (snippet abajo).  
+   
+_(Todos estos ítems provienen de la sección “Assignment” de la lección.)_ :contentReference[oaicite:3]{index=3}
 
 ---
 
-## 🧪 Pruebas sugeridas
+## ✅ Criterios de aceptación (driver script)
 
-1. Insertar varias claves hasta acercarse al factor de carga y verificar el **resize**.  
-2. Sobrescribir valores en una clave existente y comprobar que la longitud no cambia.  
-3. Usar `remove`, probando eliminar claves en diferentes posiciones del bucket.  
-4. Verificar que `keys`, `values` y `entries` devuelven la información completa.  
-5. **Comprobar en la interfaz gráfica** que los buckets y listas enlazadas reflejan los cambios tras cada operación.
+1. Crear un BST desde un arreglo de **números aleatorios < 100**.  
+2. Confirmar que el árbol **está balanceado** con `isBalanced`.  
+3. Imprimir **level**, **pre**, **post** e **inOrder**.  
+4. **Desbalancear** insertando varios números **> 100**.  
+5. Confirmar que **no** está balanceado con `isBalanced`.  
+6. Ejecutar `rebalance()`.  
+7. Confirmar que **volvió a estar balanceado** con `isBalanced`.  
+8. Volver a imprimir **level**, **pre**, **post** e **inOrder**. :contentReference[oaicite:4]{index=4}
 
 ---
 
-## 📌 Estado
+## 📚 Resultados de aprendizaje esperados
 
-Este proyecto está en construcción como parte de mi aprendizaje con The Odin Project.  
-El propósito no es crear una librería de producción, sino **comprender a fondo la lógica de los HashMaps** y reforzar el aprendizaje con una **visualización interactiva**.
+- **Comprender** la propiedad BST y su impacto en el rendimiento.  
+- **Aplicar** BFS con **cola** y DFS recursivo (in/pre/post).  
+- **Implementar** borrado manejando correctamente los **tres casos** (incluido el **sucesor** del subárbol derecho).  
+- **Medir** altura/profundidad y **comprobar** el balance **en todo el árbol** (evitar el *pitfall* de chequear solo la raíz).  
+- **Reconstruir** un BST balanceado a partir de sus valores actuales (inOrder). :contentReference[oaicite:5]{index=5}
+
+---
+
+## 🧪 Notas de implementación
+
+- **No uses el arreglo original** para simular operaciones; recorre y manipula **nodos/enlaces** del árbol para lograr la eficiencia objetivo.  
+  En árboles balanceados, inserción/borrado típicamente son `O(log n)` (vs. arrays). :contentReference[oaicite:6]{index=6}
+- **Errores**: `levelOrderForEach` y los recorridos DFS deben **lanzar Error** si no reciben callback. :contentReference[oaicite:7]{index=7}
+- **Visualización**: usa `prettyPrint(root)` (snippet oficial de la lección). :contentReference[oaicite:8]{index=8}

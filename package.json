@@ -1,7 +1,7 @@
 {
   "name": "hash-map-project-of-odin",
   "version": "1.0.0",
-  "description": "Este proyecto forma parte del curso **Fullstack JavaScript** de [The Odin Project](https://www.theodinproject.com/lessons/javascript-hashmap).  \r El objetivo es implementar desde cero una **estructura de datos HashMap**, entendiendo cómo funciona internamente y practicando conceptos clave de algoritmos y estructuras de datos.",
+  "description": "Este proyecto forma parte del curso **Fullstack JavaScript** de [The Odin Project](https://www.theodinproject.com/lessons/javascript-binary-search-trees).  \r El objetivo es implementar desde cero una **estructura de datos BST**, entendiendo cómo funciona internamente y practicando conceptos clave de algoritmos y estructuras de datos.",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/plunkydev/hash-map-project-of-odin.git"
+    "url": "git+https://github.com/plunkydev/odin-binary-search-tree-project.git"
   },
   "keywords": [
     "javascript",
@@ -30,9 +30,9 @@
   "author": "David Rosales",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/plunkydev/hash-map-project-of-odin/issues"
+    "url": "https://github.com/plunkydev/odin-binary-search-tree-project/issues"
   },
-  "homepage": "https://github.com/plunkydev/hash-map-project-of-odin#readme",
+  "homepage": "https://github.com/plunkydev/odin-binary-search-tree-project#readme",
   "devDependencies": {
         "css-loader": "^7.1.2",
         "html-loader": "^5.1.0",
