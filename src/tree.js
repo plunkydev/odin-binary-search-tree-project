@@ -67,4 +67,24 @@ export class Tree {
       return node
     }
   }
+
+  levelOrderForEach(callback, node = this.root) {
+    if (typeof callback !== 'function') {
+      throw new Error('callback is not a function')
+    }
+    let tail = []
+    if (node !== null) {
+      tail.push(node)
+    }
+    while (tail.length > 0) {
+      const current = tail.shift()
+      callback(current.data)
+      if (current.left !== null) {
+        tail.push(current.left)
+      }
+      if (current.right !== null) {
+        tail.push(current.right)
+      }
+    }
+  }
 }
