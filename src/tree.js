@@ -1,19 +1,19 @@
-// clase Tree + buildTree + API pública
+// clase Tree + #buildTree + API pública
 import { Node } from './node'
 
 export class Tree {
   constructor (array) {
     const uniqueArray = [...new Set(array)]
     array = uniqueArray.sort((a, b) => a - b)
-    this.root = this.buildTree(array)
+    this.root = this.#buildTree(array)
   }
 
-  buildTree (array) {
+  #buildTree (array) {
     if (array.length === 0) return null
     const middle = Math.floor(array.length / 2)
     const node = new Node(array[middle])
-    node.left = this.buildTree(array.slice(0, middle))
-    node.right = this.buildTree(array.slice(middle + 1))
+    node.left = this.#buildTree(array.slice(0, middle))
+    node.right = this.#buildTree(array.slice(middle + 1))
     return node
   }
   #insertAux (node, value) {
@@ -52,5 +52,19 @@ export class Tree {
   }
   insert (value) {
     this.root = this.#insertAux(this.root, value)
+  }
+
+  find(value, node = this.root) {
+    if(node === null) {
+      return null
+    }else if (node.data === value) {
+      return node
+    }else if (value < node.data) {
+      return this.find(value, node.left)
+    }else if (value > node.data) {
+      return this.find(value, node.right)
+    } else {
+      return node
+    }
   }
 }
