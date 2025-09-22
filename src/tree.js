@@ -115,4 +115,16 @@ export class Tree {
     this.postOrderForEach(callback, node.right)
     callback(node.data)
   }
+
+  height(value) {
+    const node = this.find(value)
+    if (node === null) return null
+    return this.#heightAux(node)
+  }
+  #heightAux(node) {
+    if (node === null) return -1
+    const leftHeight = this.#heightAux(node.left)
+    const rightHeight = this.#heightAux(node.right)
+    return 1 + Math.max(leftHeight, rightHeight)
+  }
 }
