@@ -127,4 +127,16 @@ export class Tree {
     const rightHeight = this.#heightAux(node.right)
     return 1 + Math.max(leftHeight, rightHeight)
   }
+
+  depth(value, node = this.root, currentDepth = 0) {
+    if (node === null) return null
+    if (node.data === value) {
+      return currentDepth
+    } else if (value < node.data) {
+      return this.depth(value, node.left, currentDepth + 1)
+    } else if (value > node.data) {
+      return this.depth(value, node.right, currentDepth + 1)
+    }
+    return null
+  }
 }
