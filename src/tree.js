@@ -2,13 +2,13 @@
 import { Node } from './node'
 
 export class Tree {
-  constructor (array) {
+  constructor(array) {
     const uniqueArray = [...new Set(array)]
     array = uniqueArray.sort((a, b) => a - b)
     this.root = this.#buildTree(array)
   }
 
-  #buildTree (array) {
+  #buildTree(array) {
     if (array.length === 0) return null
     const middle = Math.floor(array.length / 2)
     const node = new Node(array[middle])
@@ -16,7 +16,7 @@ export class Tree {
     node.right = this.#buildTree(array.slice(middle + 1))
     return node
   }
-  #insertAux (node, value) {
+  #insertAux(node, value) {
     if (node === null) return new Node(value)
     if (value < node.data) {
       node.left = this.#insertAux(node.left, value)
@@ -27,11 +27,11 @@ export class Tree {
     }
     return node
   }
-  #findMin (node) {
+  #findMin(node) {
     if (node.left === null) return node
     return this.#findMin(node.left)
   }
-  #deleteAux (node, value) {
+  #deleteAux(node, value) {
     if (node === null) return null
     if (value < node.data) {
       node.left = this.#deleteAux(node.left, value)
@@ -47,21 +47,21 @@ export class Tree {
     }
     return node
   }
-  deleteItem (value) {
+  deleteItem(value) {
     this.root = this.#deleteAux(this.root, value)
   }
-  insert (value) {
+  insert(value) {
     this.root = this.#insertAux(this.root, value)
   }
 
   find(value, node = this.root) {
-    if(node === null) {
+    if (node === null) {
       return null
-    }else if (node.data === value) {
+    } else if (node.data === value) {
       return node
-    }else if (value < node.data) {
+    } else if (value < node.data) {
       return this.find(value, node.left)
-    }else if (value > node.data) {
+    } else if (value > node.data) {
       return this.find(value, node.right)
     } else {
       return node
@@ -138,5 +138,15 @@ export class Tree {
       return this.depth(value, node.right, currentDepth + 1)
     }
     return null
+  }
+
+  isBalanced(node = this.root) {
+    if (node === null) return true
+    const leftHeight = node.left ? this.height(node.left.data) : -1
+    const rightHeight = node.right ? this.height(node.right.data) : -1
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return false
+    }
+    return this.isBalanced(node.left) && this.isBalanced(node.right)
   }
 }
